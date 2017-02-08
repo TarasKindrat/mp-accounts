@@ -22,7 +22,7 @@ urlpatterns += i18n_patterns(
 )
 ```
 
-Add articles to settings.py:
+Add accounts to settings.py:
 ```
 INSTALLED_APPS = [
     'accounts',
