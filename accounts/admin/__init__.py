@@ -10,4 +10,5 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Group, GroupAdmin)
 
 admin.site.register_view(
-    'accounts/user-statistic', views.user_statistic, 'user-statistic')
+    path='accounts/user-statistic', view=views.user_statistic,
+    urlname='user-statistic')
