@@ -16,4 +16,4 @@ def user_statistic(request):
         'staff_users_count': len(users.filter(is_staff=True))
     }
 
-    return render(request, 'accounts/admin/statistic.html', context)
+    return render(request, 'account/admin/statistic.html', context)
