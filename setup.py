@@ -4,19 +4,24 @@ from setuptools import setup, find_packages
 from accounts import __version__
 
 
+with open('requirements.txt') as f:
+    requires = f.read().splitlines()
+
+
+url = 'https://github.com/pmaigutyak/mp-accounts'
+
+
 setup(
     name='django-mp-accounts',
     version=__version__,
-    description='',
+    description='Django accounts app',
     long_description=open('README.md').read(),
     author='Paul Maigutyak',
     author_email='pmaigutyak@gmail.com',
-    url='https://github.com/pmaigutyak/mp-accounts',
-    download_url='https://github.com/pmaigutyak/mp-accounts/archive/%s.tar.gz' % __version__,
+    url=url,
+    download_url='%s/archive/%s.tar.gz' % (url, __version__),
     packages=find_packages(),
+    include_package_data=True,
     license='MIT',
-    install_requires=[
-        'django-allauth',
-        'django-widget-tweaks'
-    ]
+    install_requires=requires
 )
