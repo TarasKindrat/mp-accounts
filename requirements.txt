@@ -1,3 +1,0 @@
-
-django-allauth
-django-widget-tweaks==1.4.1

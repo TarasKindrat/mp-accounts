@@ -1,9 +1,46 @@
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-from accounts.models import UserProfile
+
+class LoginForm(AuthenticationForm):
+
+    remember = forms.BooleanField(label=_("Remember Me"), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].label = _('Login')
+
+
+class SignupForm(UserCreationForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].required = True
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+
+        if get_user_model().objects.filter(email=email).exists():
+            raise forms.ValidationError(_('This email is already taken'))
+
+        return email
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        user.is_active = False
+
+        if commit:
+            user.save()
+
+        return user
+
+    class Meta(UserCreationForm.Meta):
+        fields = ['username', 'email']
 
 
 class UserChangeForm(forms.ModelForm):
@@ -26,14 +63,13 @@ class UserChangeForm(forms.ModelForm):
 
         user = super(UserChangeForm, self).save()
 
-        try:
-            profile = user.profile
-        except UserProfile.DoesNotExist:
-            profile = UserProfile(user=user)
+        profile = user.profile
 
         profile.mobile = self.cleaned_data.get('mobile', '')
         profile.address = self.cleaned_data.get('address', '')
         profile.save()
+
+        return user
 
     class Meta:
         model = User
