@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
+from captcha.fields import ReCaptchaField
+
 
 class LoginForm(AuthenticationForm):
 
@@ -16,6 +18,8 @@ class LoginForm(AuthenticationForm):
 
 
 class SignupForm(UserCreationForm):
+
+    captcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

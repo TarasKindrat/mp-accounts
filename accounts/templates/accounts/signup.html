@@ -55,6 +55,12 @@
                             <div class="help-block">{{ form.password2.errors }}</div>
                         </div>
 
+                        <div class="input-group {% if form.captcha.errors %}has-error{% endif %} col-xs-12">
+                            {{ form.captcha.label_tag }} *
+                            {{ form.captcha }}
+                            <div class="help-block">{{ form.captcha.errors }}</div>
+                        </div>
+
                         <button class="btn btn-block btn-custom-2">
                             <i class="fa fa-check"></i>
                             {% trans 'Створити аккаунт' %}

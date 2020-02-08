@@ -1,7 +1,7 @@
 
 from setuptools import setup, find_packages
 
-from accounts import __version__
+__version__ = '3.2'
 
 
 with open('requirements.txt') as f:
