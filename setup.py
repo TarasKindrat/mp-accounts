@@ -15,7 +15,6 @@ setup(
     name='django-mp-accounts',
     version=__version__,
     description='Django accounts app',
-    long_description=open('README.md').read(),
     author='Paul Maigutyak',
     author_email='pmaigutyak@gmail.com',
     url=url,
